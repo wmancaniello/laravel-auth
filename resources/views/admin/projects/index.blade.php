@@ -18,12 +18,17 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($listProject as $item)
+                @foreach ($listProject as $project)
                     <tr>
-                        <th scope="row">{{ $item->id }}</th>
-                        <td>{{ $item->title }}</td>
-                        <td>{{ $item->description }}</td>
-                        <td>{{ $item->slug }}</td>
+                        <th scope="row">{{ $project->id }}</th>
+                        <td>{{ $project->title }}</td>
+                        <td>{{ $project->description }}</td>
+                        <td>{{ $project->slug }}</td>
+                        <td>
+                            <a class="btn btn-primary" href="{{ route('admin.projects.show', ['project' => $project->slug]) }}">
+                                <i class="fa-solid fa-circle-info"></i>
+                            </a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
