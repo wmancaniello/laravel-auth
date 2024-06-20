@@ -25,14 +25,27 @@
                         <td>{{ $project->description }}</td>
                         <td>{{ $project->slug }}</td>
                         <td>
-                            {{-- Show --}}
-                            <a class="btn btn-primary"
-                                href="{{ route('admin.projects.show', ['project' => $project->slug]) }}">
-                                <i class="fa-solid fa-circle-info"></i>
-                            </a>
-                            <a class="btn btn-warning" href="{{ route('admin.projects.edit',['project'=>$project->slug])}}">
-                                <i class="fa-solid fa-pencil"></i>
-                            </a>
+                            <div class="d-flex gap-2">
+                                {{-- Show --}}
+                                <a class="btn btn-primary"
+                                    href="{{ route('admin.projects.show', ['project' => $project->slug]) }}">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                </a>
+                                {{-- Edit --}}
+                                <a class="btn btn-warning"
+                                    href="{{ route('admin.projects.edit', ['project' => $project->slug]) }}">
+                                    <i class="fa-solid fa-pencil"></i>
+                                </a>
+                                {{-- Delete --}}
+                                <form action="{{ route('admin.projects.destroy', ['project' => $project->slug]) }}"
+                                    method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
