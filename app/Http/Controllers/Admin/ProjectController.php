@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Http\Requests\UpdateProjectRequest;
+
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -22,7 +24,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        $project = new Project();
+        return view("admin.projects.create", compact('project'));
     }
 
     /**
@@ -30,7 +33,12 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $project = new Project();
+        $project->fill($data);
+        $project->save();
+
+        // return redirect()->route("project.show", ["project" => $project->id]);
     }
 
     /**
@@ -52,10 +60,14 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+    public function update(UpdateProjectRequest $request, Project $project)
+		{
+    		$validatedData = $request->validated();
+    		
+    		$project->update($validatedData);
+
+    		return redirect()->route('admin.projects.index');
+		}
 
     /**
      * Remove the specified resource from storage.
