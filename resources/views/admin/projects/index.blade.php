@@ -25,8 +25,13 @@
                         <td>{{ $project->description }}</td>
                         <td>{{ $project->slug }}</td>
                         <td>
-                            <a class="btn btn-primary" href="{{ route('admin.projects.show', ['project' => $project->slug]) }}">
+                            {{-- Show --}}
+                            <a class="btn btn-primary"
+                                href="{{ route('admin.projects.show', ['project' => $project->slug]) }}">
                                 <i class="fa-solid fa-circle-info"></i>
+                            </a>
+                            <a class="btn btn-warning" href="{{ route('admin.projects.edit',['project'=>$project->slug])}}">
+                                <i class="fa-solid fa-pencil"></i>
                             </a>
                         </td>
                     </tr>
