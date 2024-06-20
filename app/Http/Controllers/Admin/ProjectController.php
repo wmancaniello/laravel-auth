@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Http\Requests\UpdateProjectRequest;
 
+use Illuminate\Support\Str;
+
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -33,12 +35,22 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'title' => 'required|string|max:255|unique:projects',
+            'description' => 'required|string',
+        ], [
+            'title.required' => 'Il titolo è obbligatorio.',
+            'description.required' => 'La descrizione è obbligatoria.',
+        ]);
+
         $data = $request->all();
         $project = new Project();
         $project->fill($data);
+        $project->slug = Str::slug($request->title);
         $project->save();
 
-        // return redirect()->route("project.show", ["project" => $project->id]);
+        return redirect()->route("admin.projects.index");
     }
 
     /**
@@ -61,13 +73,13 @@ class ProjectController extends Controller
      * Update the specified resource in storage.
      */
     public function update(UpdateProjectRequest $request, Project $project)
-		{
-    		$validatedData = $request->validated();
-    		
-    		$project->update($validatedData);
+    {
+        $validatedData = $request->validated();
 
-    		return redirect()->route('admin.projects.index');
-		}
+        $project->update($validatedData);
+
+        return redirect()->route('admin.projects.index');
+    }
 
     /**
      * Remove the specified resource from storage.
