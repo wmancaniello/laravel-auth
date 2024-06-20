@@ -3,7 +3,7 @@
 @section('content')
     <div class="container mt-4 gap-5">
         <h1>Lista Progetti:</h1>
-        <a href="{{ route('admin.projects.create') }}"><button>Inserisci nuovo</button></a>
+        <a href="{{ route('admin.projects.create') }}"><button class="btn btn-success my-2">Inserisci nuovo</button></a>
         <table>
             <thead>
                 <tr>
