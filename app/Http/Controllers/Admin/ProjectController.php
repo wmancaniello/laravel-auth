@@ -77,6 +77,9 @@ class ProjectController extends Controller
     {
         $validatedData = $request->validated();
 
+        // modifica dello Slug automatica in base alla modifica del titolo
+        $validatedData['slug'] = Str::slug($validatedData['title']);
+
         $project->update($validatedData);
 
         // return redirect()->route('admin.projects.show');
