@@ -2,6 +2,14 @@
 
 @section('content')
     <div class="container mt-4 gap-5">
+
+        @if (session('message'))
+            <div class="alert alert-danger">
+                {{ session('message') }}
+            </div>
+        @endif
+
+
         <h1>Lista Progetti:</h1>
         <a class="btn btn-success my-2" href="{{ route('admin.projects.create') }}">
             <i class="fa-solid fa-plus"></i> Nuovo progetto

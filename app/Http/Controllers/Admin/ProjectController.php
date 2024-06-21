@@ -79,7 +79,8 @@ class ProjectController extends Controller
 
         $project->update($validatedData);
 
-        return redirect()->route('admin.projects.index');
+        // return redirect()->route('admin.projects.show');
+        return redirect()->route('admin.projects.show', ['project' => $project->slug])->with('message', 'Il post ' . $project->title . ' è stato modificato');
     }
 
     /**
@@ -88,6 +89,7 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         $project->delete();
-        return redirect()->route('admin.projects.index');
+        // return redirect()->route('admin.projects.index');
+        return redirect()->route('admin.projects.index')->with('message', 'Il post ' . $project->title . ' è stato cancellato');
     }
 }
